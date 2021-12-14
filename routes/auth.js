@@ -31,7 +31,7 @@ router.post("/register",async (req,res)=>{
                       const token = jwt.sign({ hashhandle }, `${JWT_SECRET}`, { expiresIn: '3d' });
                       console.log(token);
                       let sql = `INSERT INTO Users(Handle,Name,Email, Password,Start_Date,JWT) VALUES ('${hashhandle}','${req.body.username}','${req.body.email}','${hashedpass}',SYSDATE(),'${token}')`;
-                      let  result = await MYSQL_CONNECTOR.connection.query(sql);
+                      let  [result] = await MYSQL_CONNECTOR.connection.query(sql);
                       console.log('Registered Successfully Please Check Your Email');
                       console.log(result);
                       nodemailer.sendConfirmationEmail(
@@ -44,7 +44,7 @@ router.post("/register",async (req,res)=>{
           
                       let __query2 = `SELECT * FROM BLOGGING.Users WHERE Email='${req.body.email}'`;
                       
-                      let user= await MYSQL_CONNECTOR.connection.query(__query2);
+                      let [user]= await MYSQL_CONNECTOR.connection.query(__query2);
                       
                      
                       res.status(200).json(user);
