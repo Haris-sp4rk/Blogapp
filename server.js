@@ -7,7 +7,7 @@ const userRoute = require("./routes/users");
 
 const sqlScripts = require('./db//sqlscript');
 app.use(express.json());
-
+//app.use(cors);
 // app.use("/",(req,res)=>{
 //     console.log("hey");
 // })
