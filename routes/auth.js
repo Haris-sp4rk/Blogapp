@@ -92,6 +92,8 @@ router.post("/login", async (req, res) => {
       res.status(500).json(err);
     }
   });
+
+  
   //UPDATING JWT
   router.get("/confirm/:confirmationCode", async (req,res) => {
 

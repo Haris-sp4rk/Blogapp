@@ -1,7 +1,8 @@
 const router = require("express").Router();
 const bcrypt = require("bcrypt");
+const req = require("express/lib/request");
 const MYSQL_CONNECTOR = (require('../db/connectDB.js'));
-
+const views= (require('../services/views.js'));
 
 //CREATE POST
 router.post("/", async (req, res) => {
@@ -55,16 +56,16 @@ router.put("/:id", async (req, res) => {
       try{
         let [result4] = await MYSQL_CONNECTOR.connection.query(query2);
         console.log(result4);
-        res.status(200).json(result4);
+        return res.status(200).json(result4);
       }catch(err){
-        res.status(500).json(err);
+        return res.status(500).json(err);
       }
 
     } else {
-      res.status(401).json("You can update only your post!");
+      return res.status(401).json("You can update only your post!");
     }
   } catch (err) {
-    res.status(500).json(err);
+    return res.status(500).json(err);
   }
 });
 
@@ -120,6 +121,7 @@ router.get("/", async (req, res) => {
     let posts;
     if (username) {
       try {
+        
         let query=`Select * from BLOGGING.Blog WHERE Users_Handle = (Select Handle FROM Users WHERE Name='${username}')`;
         let [result]=await MYSQL_CONNECTOR.connection.query(query);
         
@@ -146,7 +148,7 @@ router.get("/", async (req, res) => {
         res.status(500).json(err);
       }
     }
-    res.status(200).json(posts);
+    
   } catch (err) {
     res.status(500).json(err);
   }

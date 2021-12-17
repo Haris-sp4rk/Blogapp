@@ -74,8 +74,10 @@ const verifyAccessToken = (__token) => {
 const Updatestatus = async (_token)=>{
    let status ="Active";
    let query = `UPDATE BLOGGING.Users Set Status='${status}'  where JWT='${_token}'`;
+   //console.log(query);
    try{
     let result = await mysql.connection.query(query);
+    console.log(result);
     if (result === undefined){
       return res.status(404).send({ message: "User Not found." });
     }

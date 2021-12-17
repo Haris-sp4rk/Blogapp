@@ -15,11 +15,11 @@ router.post("/", async (req, res) => {
     }
   });
 
-  //get
-  //GET POST
-router.get("/", async (req, res) => {
+  //get by id
+  
+router.get("/:id", async (req, res) => {
     try {
-      let query=`Select * from BLOGGING.Cattegory '`;
+      let query=`Select * from BLOGGING.Cattegory Where ID=${req.params.id}`;
       let [result]=await MYSQL_CONNECTOR.connection.query(query);
       
       res.status(200).json(result);
@@ -29,32 +29,17 @@ router.get("/", async (req, res) => {
   });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  //GET all
+  router.get("/", async (req, res) => {
+    try {
+      let query=`Select * from BLOGGING.Cattegory `;
+      let [result]=await MYSQL_CONNECTOR.connection.query(query);
+      
+      res.status(200).json(result);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  });
 
 
 

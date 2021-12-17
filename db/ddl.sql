@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS `Blog`
     `Cattegory`   MEDIUMINT NOT NULL ,
     `Rating`       INTEGER DEFAULT 0,
     `Likes`        INTEGER DEFAULT 0,
+    `Views`        MEDIUMINT NOT NULL DEFAULT 0,
     `Users_Handle` VARCHAR(500) NOT NULL,
     `Created_AT` DATE,
     `Updated_AT` DATE,
