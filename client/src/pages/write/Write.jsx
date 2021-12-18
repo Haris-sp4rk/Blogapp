@@ -7,14 +7,18 @@ export default function Write() {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [file, setFile] = useState(null);
+  const [photo, setphoto]=useState("");
   const { user } = useContext(Context);
-
+  console.log(user[0].Handle);
   const handleSubmit = async (e) => {
     e.preventDefault();
     const newPost = {
-      username: user.username,
+      username: user.Name,
       title,
       desc,
+      photo,
+      handle: user[0].Handle,
+      categories:1
     };
     if (file) {
       const data =new FormData();
@@ -28,7 +32,8 @@ export default function Write() {
     }
     try {
       const res = await axios.post("/posts", newPost);
-      window.location.replace("/post/" + res.data._id);
+      console.log(res);
+      window.location.replace("/");
     } catch (err) {}
   };
   return (

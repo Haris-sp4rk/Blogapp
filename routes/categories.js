@@ -6,7 +6,7 @@ const router = require("express").Router();
 router.post("/", async (req, res) => {
  
  
-    let sql = `INSERT INTO Cattegory(Name) Values ('${req.body.name}')`;              
+    let sql = `INSERT INTO Cattegory(C_Name) Values ('${req.body.name}')`;              
     try {
       const result = await MYSQL_CONNECTOR.connection.query(sql);   
       res.status(200).json({message:"Cattegory created Sucessfully"});
