@@ -12,6 +12,7 @@ export default function SinglePost() {
   const PF = "http://localhost:5000/images/";
   const { user } = useContext(Context);
   const [title, setTitle] = useState("");
+  const [temp, setTemp] = useState("");
   const [desc, setDesc] = useState("");
   const [updateMode, setUpdateMode] = useState(false);
 
@@ -20,7 +21,7 @@ export default function SinglePost() {
       const res = await axios.get("/posts/" + path);
       
       setPost(res.data[0]);
-    
+      setTemp(res.data[0].title);
       setTitle(res.data[0].title);
       setDesc(res.data[0].Content);
       
@@ -36,11 +37,12 @@ export default function SinglePost() {
       window.location.replace("/");
     } catch (err) {}
   };
+  
 
   const handleUpdate = async () => {
     console.log(title);
     try {
-      await axios.put(`/posts/${title}`,post
+      await axios.put(`/posts/${temp}`,post
       // {
       //   username: user.username,
       //   title,
@@ -65,7 +67,8 @@ export default function SinglePost() {
             className="singlePostTitleInput"
             autoFocus
             onChange={(e) => {
-              //setTitle(e.target.value);
+              //setTemp(title);
+              setTitle(e.target.value);
               post.title=e.target.value;}}
           />
         ) : (

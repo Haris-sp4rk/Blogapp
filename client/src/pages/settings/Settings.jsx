@@ -18,35 +18,43 @@ export default function Settings() {
     e.preventDefault();
     dispatch({ type: "UPDATE_START" });
     const updatedUser = {
-      userId: user._id,
-      username,
-      email,
+      userId: user.Handle,
+      username:user.data[0].Name,
+      email:user.data[0].Email,
       password,
+      Profile_Pic: user.data[0].Profile_Pic
     };
     if (file) {
       const data = new FormData();
       const filename = Date.now() + file.name;
       data.append("name", filename);
       data.append("file", file);
-      updatedUser.profilePic = filename;
+      updatedUser.Profile_Pic = filename;
       try {
         await axios.post("/upload", data);
       } catch (err) {}
     }
     try {
-      const res = await axios.put("/users/" + user._id, updatedUser);
+      const res = await axios.put("/users/" + user[0].Email, updatedUser);
       setSuccess(true);
       dispatch({ type: "UPDATE_SUCCESS", payload: res.data });
     } catch (err) {
       dispatch({ type: "UPDATE_FAILURE" });
     }
   };
+  const handleDelete = async () => {
+    try {
+      await axios.delete(`/users/${user.data[0].Email}`);
+      dispatch({ type: "LOGOUT" });
+      window.location.replace("/login");
+    } catch (err) {}
+  };
   return (
     <div className="settings">
       <div className="settingsWrapper">
         <div className="settingsTitle">
           <span className="settingsUpdateTitle">Update Your Account</span>
-          <span className="settingsDeleteTitle">Delete Account</span>
+          <span className="settingsDeleteTitle" onClick={handleDelete}>Delete Account </span>
         </div>
         <form className="settingsForm" onSubmit={handleSubmit}>
           <label>Profile Picture</label>
@@ -68,13 +76,13 @@ export default function Settings() {
           <label>Username</label>
           <input
             type="text"
-            placeholder={user.username}
+            placeholder={user[0].Name}
             onChange={(e) => setUsername(e.target.value)}
           />
           <label>Email</label>
           <input
             type="email"
-            placeholder={user.email}
+            placeholder={user[0].Email}
             onChange={(e) => setEmail(e.target.value)}
           />
           <label>Password</label>
