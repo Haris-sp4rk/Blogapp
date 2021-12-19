@@ -90,15 +90,15 @@ export default function Write() {
             style={{ display: "none" }}
             onChange={(e) => setFile(e.target.files[0])}
           />
-          <select>
+          <select
                 value={categories}
                 onChange={(e) => {
-                setcat(e.target.ID);
                 console.log("haris");
-                }}
+                setcat(e.target.value);
+                }}>
               {cats.map((element)=>{
               return (
-              <option  value={element.ID}>{element.C_Name}  
+              <option key={element.ID}  value={element.ID}>{element.C_Name}  
                
               </option>
               )})}

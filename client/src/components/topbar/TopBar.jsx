@@ -5,7 +5,7 @@ import "./topbar.css";
 
 export default function TopBar() {
   const { user, dispatch } = useContext(Context);
-  console.log(user);
+  
   const PF = "http://localhost:5000/images/";
   
 

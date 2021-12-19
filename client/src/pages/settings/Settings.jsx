@@ -19,10 +19,10 @@ export default function Settings() {
     dispatch({ type: "UPDATE_START" });
     const updatedUser = {
       userId: user.Handle,
-      username:user.data[0].Name,
-      email:user.data[0].Email,
+      username:user.Name,
+      email:user.Email,
       password,
-      Profile_Pic: user.data[0].Profile_Pic
+      Profile_Pic: user.Profile_Pic
     };
     if (file) {
       const data = new FormData();
