@@ -29,7 +29,6 @@ export default function Settings() {
     };
     fetchcat();
     }, []);
-    
   const handleSubmit = async (e) => {
     e.preventDefault();
     dispatch({ type: "UPDATE_START" });
