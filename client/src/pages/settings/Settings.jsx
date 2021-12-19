@@ -18,9 +18,9 @@ export default function Settings() {
     e.preventDefault();
     dispatch({ type: "UPDATE_START" });
     const updatedUser = {
-      userId: user.Handle,
-      username:user.Name,
-      email:user.Email,
+      userId: user[0].Handle,
+      username: user[0].Name,
+      email: user[0].Email,
       password,
       Profile_Pic: user.Profile_Pic
     };
