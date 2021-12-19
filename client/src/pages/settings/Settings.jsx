@@ -22,7 +22,7 @@ export default function Settings() {
       username: user[0].Name,
       email: user[0].Email,
       password,
-      Profile_Pic: user.Profile_Pic
+      Profile_Pic: user[0].Profile_Picture
     };
     if (file) {
       const data = new FormData();

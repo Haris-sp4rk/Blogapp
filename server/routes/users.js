@@ -16,7 +16,7 @@ router.put("/:id", async (req, res) => {
       
     try {
       //yahan pr db ma update krwana ha
-      let __query = `UPDATE BLOGGING.Users SET Profile_Picture='${req.body.Profile_Pic}',Name='${req.body.username}', Password='${req.body.password}', Email='${req.body.email}'  WHERE Handle='${req.body.userid}'`;
+      let __query = `UPDATE BLOGGING.Users SET Profile_Picture='${req.body.Profile_Pic}',Name='${req.body.username}', Password='${req.body.password}', Email='${req.body.email}'  WHERE Handle='${req.body.userId}'`;
       [result] = await MYSQL_CONNECTOR.connection.query(__query);
           //console.log(result);
       let __query2 = `SELECT * FROM BLOGGING.Users WHERE Handle='${req.body.userid}'`;
@@ -27,13 +27,13 @@ router.put("/:id", async (req, res) => {
       res.status(500).json(err);
     }
     }else{
-      
+      console.log("pass");
     try {
       //yahan pr db ma update krwana ha
-      let __query = `UPDATE BLOGGING.Users SET Profile_Picture='${req.body.Profile_Pic}',Name='${req.body.username}', Email='${req.body.email}'  WHERE Handle='${req.body.userid}'`;
+      let __query = `UPDATE BLOGGING.Users SET Profile_Picture='${req.body.Profile_Pic}',Name='${req.body.username}', Email='${req.body.email}'  WHERE Handle='${req.body.userId}'`;
       [result] = await MYSQL_CONNECTOR.connection.query(__query);
           //console.log(result);
-      let __query2 = `SELECT * FROM BLOGGING.Users WHERE Handle='${req.body.userid}'`;
+      let __query2 = `SELECT * FROM BLOGGING.Users WHERE Handle='${req.body.userId}'`;
       [result2] = await MYSQL_CONNECTOR.connection.query(__query2);
       //console.log(result2);
       res.status(200).json(result2);
