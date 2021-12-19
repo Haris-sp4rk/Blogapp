@@ -1,6 +1,6 @@
 import "./settings.css";
 import Sidebar from "../../components/sidebar/Sidebar";
-import { useContext, useState } from "react";
+import { useContext, useState,useEffect } from "react";
 import { Context } from "../../context/Context";
 import axios from "axios";
 
@@ -10,20 +10,30 @@ export default function Settings() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [success, setSuccess] = useState(false);
+  const [Profile_Pic,setpic]=useState("");
 
   const { user, dispatch } = useContext(Context);
   const PF = "http://localhost:5000/images/"
-
+  const updatedUser = {
+    userId:user[0].Handle,
+    username,
+    email,
+    password,
+    Profile_Pic,
+  };
+  useEffect(() => {
+    const fetchcat = async () => {
+    setUsername(user[0].Name);
+    setEmail(user[0].Email);
+    setpic(user[0].Profile_Picture);
+    };
+    fetchcat();
+    }, []);
+    
   const handleSubmit = async (e) => {
     e.preventDefault();
     dispatch({ type: "UPDATE_START" });
-    const updatedUser = {
-      userId: user[0].Handle,
-      username: user[0].Name,
-      email: user[0].Email,
-      password,
-      Profile_Pic: user[0].Profile_Picture
-    };
+    
     if (file) {
       const data = new FormData();
       const filename = Date.now() + file.name;
