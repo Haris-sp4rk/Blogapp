@@ -43,8 +43,12 @@ export default function Settings() {
     }
   };
   const handleDelete = async () => {
+    console.log("haris");
+    console.log(user);
+    console.log(user[0]);
+    //console.log(user.data);
     try {
-      await axios.delete(`/users/${user.data[0].Email}`);
+      await axios.delete("/users/"+user[0].Email);
       dispatch({ type: "LOGOUT" });
       window.location.replace("/login");
     } catch (err) {}

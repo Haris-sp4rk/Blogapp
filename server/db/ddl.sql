@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS `Blog`
   (
 
     
-    `title`        VARCHAR(100) UNIQUE,
+    `title`        VARCHAR(500) UNIQUE,
     `Content`      VARCHAR(10000) NOT NULL ,
     `Blog_ID`      VARCHAR(500) NOT NULL ,
     `Cattegory`   MEDIUMINT NOT NULL ,
@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS `Blog`
     `Users_Handle` VARCHAR(500) NOT NULL,
     `Created_AT` DATE,
     `Updated_AT` DATE,
-    `photo`     VARCHAR(50) DEFAULT 'abc.jpg',
+    `photo`     VARCHAR(100) DEFAULT 'abc.jpg',
     FOREIGN KEY ( `Cattegory`) REFERENCES `Cattegory` (`ID`)
   ) ;
 ALTER TABLE `Blog` ADD CONSTRAINT `Blog_PK` PRIMARY KEY ( `Blog_ID` ) ;
@@ -33,7 +33,7 @@ ALTER TABLE `Blog` ADD CONSTRAINT `Blog_PK` PRIMARY KEY ( `Blog_ID` ) ;
 CREATE TABLE IF NOT EXISTS `Comments`
   (
     `User_ID`      VARCHAR(500) NOT NULL ,
-    `Content`      VARCHAR(40) NOT NULL ,
+    `Content`      VARCHAR(5000) NOT NULL ,
     `Comment_Date` DATE NOT NULL ,
     `Blog_Blog_ID` VARCHAR(500) NOT NULL
   ) ;
@@ -44,7 +44,7 @@ ALTER TABLE `Comments` ADD CONSTRAINT `Comments_PK` PRIMARY KEY ( `User_ID`, `Bl
 
 CREATE TABLE IF NOT EXISTS `Likes`
   (
-    `Liker_ID`    VARCHAR(40) NOT NULL ,
+    `Liker_ID`    VARCHAR(500) NOT NULL ,
     `Blog_Blog_ID` VARCHAR(500) NOT NULL
   ) ;
 ALTER TABLE `Likes` ADD CONSTRAINT `Likes_PK` PRIMARY KEY ( `Liker_ID`, `Blog_Blog_ID` ) ;
@@ -55,12 +55,12 @@ ALTER TABLE `Likes` ADD CONSTRAINT `Likes_PK` PRIMARY KEY ( `Liker_ID`, `Blog_Bl
 
 CREATE TABLE IF NOT EXISTS `Users`
   (
-    `Name`            VARCHAR(25) NOT NULL ,
+    `Name`            VARCHAR(300) NOT NULL ,
     `Handle`          VARCHAR(500) NOT NULL ,
     `Email`           VARCHAR(100) NOT NULL ,
     `Password`       VARCHAR(500) NOT NULL ,
     `Start_Date`      DATE NOT NULL ,
-    `Profile_Picture` VARCHAR(15) DEFAULT 'abc.png' ,
+    `Profile_Picture` VARCHAR(150) DEFAULT 'abc.png' ,
     `Gender`          VARCHAR(10) ,
     `Status`          VARCHAR(10) DEFAULT 'UNACTIVE',
     `D.O.B`         DATE,

@@ -10,7 +10,7 @@ export default function Sidebar() {
     const getCats = async () => {
       const res = await axios.get("/categories");
       setCats(res.data);
-      console.log(cats);
+    
     };
     getCats();
   }, []);

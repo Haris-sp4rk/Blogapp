@@ -16,10 +16,10 @@ router.put("/:id", async (req, res) => {
       
     try {
       //yahan pr db ma update krwana ha
-      let __query = `UPDATE BLOGGING.Users SET Profile_Picture='${req.body.Profile_Pic}',Name='${req.body.username}', Password='${req.body.password}', Email='${req.body.email}'  WHERE Email='${req.body.email}'`;
+      let __query = `UPDATE BLOGGING.Users SET Profile_Picture='${req.body.Profile_Pic}',Name='${req.body.username}', Password='${req.body.password}', Email='${req.body.email}'  WHERE Handle='${req.body.userid}'`;
       [result] = await MYSQL_CONNECTOR.connection.query(__query);
           //console.log(result);
-      let __query2 = `SELECT * FROM BLOGGING.Users WHERE Email='${req.body.email}'`;
+      let __query2 = `SELECT * FROM BLOGGING.Users WHERE Handle='${req.body.userid}'`;
       [result2] = await MYSQL_CONNECTOR.connection.query(__query2);
       //console.log(result2);
       res.status(200).json(result2);
@@ -30,10 +30,10 @@ router.put("/:id", async (req, res) => {
       
     try {
       //yahan pr db ma update krwana ha
-      let __query = `UPDATE BLOGGING.Users SET Profile_Picture='${req.body.Profile_Pic}',Name='${req.body.username}', Email='${req.body.email}'  WHERE Email='${req.body.email}'`;
+      let __query = `UPDATE BLOGGING.Users SET Profile_Picture='${req.body.Profile_Pic}',Name='${req.body.username}', Email='${req.body.email}'  WHERE Handle='${req.body.userid}'`;
       [result] = await MYSQL_CONNECTOR.connection.query(__query);
           //console.log(result);
-      let __query2 = `SELECT * FROM BLOGGING.Users WHERE Email='${req.body.email}'`;
+      let __query2 = `SELECT * FROM BLOGGING.Users WHERE Handle='${req.body.userid}'`;
       [result2] = await MYSQL_CONNECTOR.connection.query(__query2);
       //console.log(result2);
       res.status(200).json(result2);
@@ -51,12 +51,24 @@ router.put("/:id", async (req, res) => {
 
 //DELETE
 router.delete("/:id", async (req, res) => {
-  if (req.body.email === req.params.id) {
+  
+  console.log(req.params.id);
+ 
     try {
-      let __query = `DELETE  FROM BLOGGING.Users WHERE Email='${req.body.email}'`;
-      let __query2 = `DELETE  FROM BLOGGING.Blog WHERE Users_Handle='${req.body.handle}'`;
-      let result;
+      let test =`select Handle from Users Where Email='${req.params.id}'`;
+      let handle;
+      try{
+        handle = await MYSQL_CONNECTOR.connection.query(test);
+        console.log(handle);
+      }catch (err) {
+        return res.status(500).json(err);
+      }
+
+      let __query = `DELETE  FROM BLOGGING.Users WHERE Email='${req.params.id}'`;
+
+      let __query2 = `DELETE  FROM BLOGGING.Blog WHERE Users_Handle='${handle}'`;
       
+      let result;
       try {
         [result] = await MYSQL_CONNECTOR.connection.query(__query);
         [result] = await MYSQL_CONNECTOR.connection.query(__query2);
@@ -67,9 +79,7 @@ router.delete("/:id", async (req, res) => {
     } catch (err) {
       res.status(404).json("User not found!");
     }
-  } else {
-    res.status(401).json("You can delete only your account!");
-  }
+  
 });
 
 //GET USER
