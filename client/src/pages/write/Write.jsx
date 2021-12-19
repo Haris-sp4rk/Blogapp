@@ -1,7 +1,23 @@
-import { useContext, useState } from "react";
+import { useContext, useState,useEffect } from "react";
 import "./write.css";
 import axios from "axios";
+
+//import { Dropdown, Selection } from 'react-dropdown-now';
+//import 'react-dropdown-now/style.css';
+
 import { Context } from "../../context/Context";
+
+
+import React, { Component } from 'react'
+import Select from 'react-select'
+
+const options = [
+  { value: 'chocolate', label: 'Chocolate' },
+  { value: 'strawberry', label: 'Strawberry' },
+  { value: 'vanilla', label: 'Vanilla' }
+]
+
+
 
 export default function Write() {
   const [title, setTitle] = useState("");
@@ -9,18 +25,39 @@ export default function Write() {
   const [file, setFile] = useState(null);
   const [photo, setphoto]=useState("");
   const { user } = useContext(Context);
+  const [categories,setcat]=useState("");
+  const [cats, setCats] = useState([]);
   console.log(user[0].Handle);
+   useEffect(() => {
+  const fetchcat = async () => {
+    const res = await axios.get("/categories");
+    console.log(res.data);
+    setCats(res.data);
+    
+  };
+  
+  fetchcat();
+  }, []);
+  
+  console.log(cats);
+  console.log(categories);
+  
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    
     const newPost = {
       username: user.Name,
       title,
       desc,
       photo,
       handle: user[0].Handle,
-      categories:1
+      categories
     };
     if (file) {
+      
       const data =new FormData();
       const filename = Date.now() + file.name;
       data.append("name", filename);
@@ -37,6 +74,7 @@ export default function Write() {
     } catch (err) {}
   };
   return (
+  
     <div className="write">
       {file && (
         <img className="writeImg" src={URL.createObjectURL(file)} alt="" />
@@ -52,6 +90,22 @@ export default function Write() {
             style={{ display: "none" }}
             onChange={(e) => setFile(e.target.files[0])}
           />
+          <select>
+                value={categories}
+                onChange={(e) => {
+                setcat(e.target.ID);
+                console.log("haris");
+                }}
+              {cats.map((element)=>{
+              return (
+              <option  value={element.ID}>{element.C_Name}  
+               
+              </option>
+              )})}
+             
+              </select>   
+              
+          
           <input
             type="text"
             placeholder="Title"
@@ -59,6 +113,7 @@ export default function Write() {
             autoFocus={true}
             onChange={e=>setTitle(e.target.value)}
           />
+          
         </div>
         <div className="writeFormGroup">
           <textarea

@@ -95,6 +95,12 @@ export default function SinglePost() {
               <b> {post.Name}</b>
             </Link>
           </span>
+          <span className="singlePostViews">
+            Views:
+            <Link to={`/?user=${post.Name}`} className="link">
+              <b> {post.Views}</b>
+            </Link>
+          </span>
           <span className="singlePostDate">
             {new Date(post.Created_AT).toDateString()}
           </span>
