@@ -8,6 +8,7 @@ const MYSQL_CONNECTOR = (require('../db/connectDB.js'));
 router.put("/:id", async (req, res) => {
   //console.log(req.params.id);
   //console.log(req.body);
+  console.log(req.body);
   if (req.body.email === req.params.id) {
     if (req.body.password) {
       const salt = await bcrypt.genSalt(10);
@@ -15,7 +16,7 @@ router.put("/:id", async (req, res) => {
       
     try {
       //yahan pr db ma update krwana ha
-      let __query = `UPDATE BLOGGING.Users SET Name='${req.body.username}', Password='${req.body.password}', Email='${req.body.email}'  WHERE Email='${req.body.email}'`;
+      let __query = `UPDATE BLOGGING.Users SET Profile_Picture='${req.body.Profile_Pic}',Name='${req.body.username}', Password='${req.body.password}', Email='${req.body.email}'  WHERE Email='${req.body.email}'`;
       [result] = await MYSQL_CONNECTOR.connection.query(__query);
           //console.log(result);
       let __query2 = `SELECT * FROM BLOGGING.Users WHERE Email='${req.body.email}'`;
@@ -29,7 +30,7 @@ router.put("/:id", async (req, res) => {
       
     try {
       //yahan pr db ma update krwana ha
-      let __query = `UPDATE BLOGGING.Users SET Name='${req.body.username}', Email='${req.body.email}'  WHERE Email='${req.body.email}'`;
+      let __query = `UPDATE BLOGGING.Users SET Profile_Picture='${req.body.Profile_Pic}',Name='${req.body.username}', Email='${req.body.email}'  WHERE Email='${req.body.email}'`;
       [result] = await MYSQL_CONNECTOR.connection.query(__query);
           //console.log(result);
       let __query2 = `SELECT * FROM BLOGGING.Users WHERE Email='${req.body.email}'`;

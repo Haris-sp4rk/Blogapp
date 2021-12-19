@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS `Blog`
   (
 
     
-    `title`        VARCHAR(40) UNIQUE,
+    `title`        VARCHAR(100) UNIQUE,
     `Content`      VARCHAR(10000) NOT NULL ,
     `Blog_ID`      VARCHAR(500) NOT NULL ,
     `Cattegory`   MEDIUMINT NOT NULL ,
