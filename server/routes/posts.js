@@ -135,7 +135,7 @@ router.get("/", async (req, res) => {
       try {
         
         //let query=`Select * from BLOGGING.Blog WHERE Users_Handle = (Select Handle FROM Users WHERE Name='${username}')`;
-        let query=`Select * from BLOGGING.Blog,Users,Cattegory WHERE Email ='${username}' AND Users_Handle=Handle AND Blog.cattegory=ID`;
+        let query=`Select * from BLOGGING.Blog,Users,Cattegory WHERE title ='${username}' AND Users_Handle=Handle AND Blog.cattegory=ID`;
         
         let [result]=await MYSQL_CONNECTOR.connection.query(query);
         

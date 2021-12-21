@@ -15,20 +15,24 @@ export default function SinglePost() {
   const [temp, setTemp] = useState("");
   const [desc, setDesc] = useState("");
   const [updateMode, setUpdateMode] = useState(false);
-
+ 
   useEffect(() => {
     const getPost = async () => {
+      
       const res = await axios.get("/posts/" + path);
       
       setPost(res.data[0]);
       setTemp(res.data[0].title);
       setTitle(res.data[0].title);
       setDesc(res.data[0].Content);
-      
+      console.log(res);
     };
     getPost();
   }, [path]);
+
  console.log(post);
+ console.log(path);
+ console.log(user);
   const handleDelete = async () => {
     try {
       await axios.delete(`/posts/${post.title}`, {
