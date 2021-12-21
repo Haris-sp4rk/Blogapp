@@ -11,6 +11,7 @@ export default function Settings() {
   const [password, setPassword] = useState("");
   const [success, setSuccess] = useState(false);
   const [Profile_Pic,setpic]=useState("");
+  const [temp,settemp]=useState("");
 
   const { user, dispatch } = useContext(Context);
   const PF = "http://localhost:5000/images/"
@@ -26,6 +27,7 @@ export default function Settings() {
     setUsername(user[0].Name);
     setEmail(user[0].Email);
     setpic(user[0].Profile_Picture);
+    settemp(user[0].Email);
     };
     fetchcat();
     }, []);
@@ -44,7 +46,7 @@ export default function Settings() {
       } catch (err) {}
     }
     try {
-      const res = await axios.put("/users/" + user[0].Email, updatedUser);
+      const res = await axios.put("/users/" + temp, updatedUser);
       setSuccess(true);
       dispatch({ type: "UPDATE_SUCCESS", payload: res.data });
     } catch (err) {
@@ -96,7 +98,9 @@ export default function Settings() {
           <input
             type="email"
             placeholder={user[0].Email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => {
+              settemp(user[0].Email);
+              setEmail(e.target.value);}}
           />
           <label>Password</label>
           <input

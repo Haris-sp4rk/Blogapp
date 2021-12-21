@@ -9,7 +9,7 @@ router.put("/:id", async (req, res) => {
   //console.log(req.params.id);
   //console.log(req.body);
   console.log(req.body);
-  if (req.body.email === req.params.id) {
+  
     if (req.body.password) {
       const salt = await bcrypt.genSalt(10);
       req.body.password = await bcrypt.hash(req.body.password, salt);
@@ -43,10 +43,7 @@ router.put("/:id", async (req, res) => {
     }
     
   
-  
-  } else {
-    res.status(401).json("You can update only your account!");
-  }
+ 
 });
 
 //DELETE

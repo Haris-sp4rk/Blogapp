@@ -15,6 +15,7 @@ export default function SinglePost() {
   const [temp, setTemp] = useState("");
   const [desc, setDesc] = useState("");
   const [updateMode, setUpdateMode] = useState(false);
+
  
   useEffect(() => {
     const getPost = async () => {
@@ -26,6 +27,7 @@ export default function SinglePost() {
       setTitle(res.data[0].title);
       setDesc(res.data[0].Content);
       console.log(res);
+      
     };
     getPost();
   }, [path]);

@@ -33,13 +33,14 @@ var isEmpty = function(obj) {
 }
 router.put("/:id", async (req, res) => {
  
-   console.log(req.body);
    let query=`Select * from BLOGGING.Blog WHERE title = '${req.params.id}'`;
    
       let result;
    
     try{
         [result] = await MYSQL_CONNECTOR.connection.query(query);
+        
+
        if (isEmpty(result)){
          return res.status(400).json({message:"No Blog exist"});
        }
@@ -51,11 +52,13 @@ router.put("/:id", async (req, res) => {
   try {
     
     if (req.body.Users_Handle === req.body.Handle) {
-      
+      console.log(req.body);
       try {
-        let sql = `UPDATE  Blog SET title='${req.body.title}',Content='${req.body.Content}',Cattegory=${req.body.ID},Updated_AT=SYSDATE() WHERE title ='${req.params.id}'`;  
+        let sql = `UPDATE  Blog SET title='${req.body.title}',Content='${req.body.Content}',Updated_AT=SYSDATE() WHERE title ='${req.params.id}'`;  
         //let sql2= `UPDATE Photos SET Photo_ID='${req.body.photo}' where Blog_Blog_ID='${[[result[0]][0].Blog_ID]}'`;        
         const result3 = await MYSQL_CONNECTOR.connection.query(sql);
+        console.log(req.body);
+        console.log(result3);
         //const result2 = await MYSQL_CONNECTOR.connection.query(sql2);
         
       } catch (err) {
